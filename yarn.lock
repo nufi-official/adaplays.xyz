@@ -989,11 +989,6 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@metamask/detect-provider@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@metamask/detect-provider/-/detect-provider-2.0.0.tgz#4bc2795e5e6f7d8b84b2e845058d2f222c99917d"
-  integrity sha512-sFpN+TX13E9fdBDh9lvQeZdJn4qYoRb/6QF2oZZK/Pn559IhCFacPMU1rMuqyXoFQF3JSJfii2l98B87QDPeCQ==
-
 "@motionone/animation@^10.12.0":
   version "10.14.0"
   resolved "https://registry.yarnpkg.com/@motionone/animation/-/animation-10.14.0.tgz#2f2a3517183bb58d82e389aac777fe0850079de6"
@@ -1145,19 +1140,17 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nufi/dapp-client-cardano@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-cardano/-/dapp-client-cardano-0.3.0.tgz#dea7bfeb35a25ac3699ba17995c2914592571d96"
-  integrity sha512-+1Ro0cDlaVYe5AvHLTwJ8GQCT5cHeEFnq2e/u0xRNMFo3Wa7HYJ/lSgTW7t5Ng+jBTNkra+da153kdsWxhwptA==
+"@nufi/dapp-client-cardano@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-cardano/-/dapp-client-cardano-0.4.0.tgz#2c8d9c0fe468e0a15132046144d2290114f24981"
+  integrity sha512-cOJcqrWMgwYhYSv4nOYp7sFQzqoDyja117yundcQjfN1ffUr+MM707psDnWqCTQtJN9lML7KSb5WVdz2k7Ob7Q==
   dependencies:
-    "@nufi/dapp-client-core" "0.3.0"
+    "@nufi/dapp-client-core" "0.4.0"
 
-"@nufi/dapp-client-core@0.3.0", "@nufi/dapp-client-core@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-core/-/dapp-client-core-0.3.0.tgz#9a2a55a7d3ffeb77a7ef8335b780f2b8fdfe7fa7"
-  integrity sha512-KtKsYeJ4xqH1Jjw5oljSrtmI6Rm/NpwBhROBGCiXzu2jl1yFUAy4k88EwJSeRj3JjhNo7Fu/TFt5MHBLRisVkA==
-  dependencies:
-    "@metamask/detect-provider" "^2.0.0"
+"@nufi/dapp-client-core@0.4.0", "@nufi/dapp-client-core@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-core/-/dapp-client-core-0.4.0.tgz#ff0ea8378ba6f9d3f2a52b06c885b4db33bdb997"
+  integrity sha512-hZZp9NlubD0gnNI1SnpoGx8lDrZXIAqKKut2hQuOmKUOGUyqIVbQv//ujfFKMP/Q0iXtEO9mjUjejXIvYmMB3A==
 
 "@nufi/sso-button-react@^0.0.3":
   version "0.0.3"
