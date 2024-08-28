@@ -60,17 +60,17 @@ const Home: NextPage = () => {
             <Button {...commonButtonProps} onClick={() => {
                nufiCoreSdk.getApi().showWidget('opened')
               }}>
-              Testing: open widget
+              Testing: Open widget
             </Button>
             <Button {...commonButtonProps} onClick={() => {
                   nufiCoreSdk.getApi().showWidget('closed')
               }}>
-              Testing: close widget
+              Testing: Close widget
             </Button>
             <Button {...commonButtonProps} onClick={() => {
                 alert(`Visibility status ${nufiCoreSdk.getApi().getWidgetVisibilityStatus()}`)
               }}>
-              Testing: get widget visibility status
+              Testing: Widget visibility status
             </Button>
           </>
         )}
