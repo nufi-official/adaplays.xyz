@@ -40,10 +40,19 @@ import YupPassword from 'yup-password'
 YupPassword(yup)
 import { brandButtonStyle } from 'theme/simple'
 import { getApi, getLucid } from "utils/lucid/lucid";
-import nufiCoreSdk, { SocialLoginInfo } from '@nufi/dapp-client-core'
-import {initNufiDappCardanoSdk} from '@nufi/dapp-client-cardano'
+import nufiCoreSdk, { BlockchainSdkOptions, SocialLoginInfo } from '@nufi/dapp-client-core'
+import {initNufiDappCardanoSdk as _initNufiDappCardanoSdk} from '@nufi/dapp-client-cardano'
 import {SsoButton} from '@nufi/sso-button-react'
 import styles from './navbar.module.css'
+
+const initNufiDappCardanoSdk = (platform: 'sso' | 'snap') => {
+  _initNufiDappCardanoSdk(nufiCoreSdk, platform, {
+    featuredTokens: [{
+      assetNameHex: '55534443',
+      policyIdHex: '648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198'
+    }]
+  })
+}
 
 export default function Navbar() {
   const [logoHover, setLogoHover] = useState<boolean>(false);
@@ -155,11 +164,11 @@ const ConnectButton = () => {
     const fn = async () => {
       if (status === 'authenticated') {
         if (data.user.wallet === 'nufiSSO') {
-          initNufiDappCardanoSdk(nufiCoreSdk, 'sso')
+          initNufiDappCardanoSdk('sso')
           await window.cardano.nufiSSO.enable()
         }
         if (data.user.wallet === 'nufiSnap') {
-          initNufiDappCardanoSdk(nufiCoreSdk, 'snap')
+          initNufiDappCardanoSdk('snap')
           await window.cardano.nufiSnap.enable()
         }
       }
@@ -269,7 +278,7 @@ const ConnectButton = () => {
               isLoading={isConnecting}
               onLogin={() => {
                 _setCandidateWalletName('nufiSSO')
-                initNufiDappCardanoSdk(nufiCoreSdk, 'sso');
+                initNufiDappCardanoSdk('sso');
                 connectWallet('nufiSSO')
               }}
               classes={{
@@ -297,7 +306,7 @@ const ConnectButton = () => {
                   <Button key={walletName} onClick={() => {
                     setSelectWalletTapped(true);
                     if (walletName === 'nufiSnap') {
-                      initNufiDappCardanoSdk(nufiCoreSdk, 'snap');
+                      initNufiDappCardanoSdk('snap');
                     }
                     connectWallet(walletName)
                   }} variant='link' colorScheme='black' isLoading={selectWalletTapped}>
