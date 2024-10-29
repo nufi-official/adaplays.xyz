@@ -40,7 +40,7 @@ import YupPassword from 'yup-password'
 YupPassword(yup)
 import { brandButtonStyle } from 'theme/simple'
 import { getApi, getLucid } from "utils/lucid/lucid";
-import nufiCoreSdk, { BlockchainSdkOptions, SocialLoginInfo } from '@nufi/dapp-client-core'
+import nufiCoreSdk, { SocialLoginInfo } from '@nufi/dapp-client-core'
 import {initNufiDappCardanoSdk as _initNufiDappCardanoSdk} from '@nufi/dapp-client-cardano'
 import {SsoButton} from '@nufi/sso-button-react'
 import styles from './navbar.module.css'
@@ -145,8 +145,16 @@ const ConnectButton = () => {
     // up from ENV or being simply hardcoded.
     const searchParams = new URLSearchParams(window.location.search)
     const nufiDomain = decodeURIComponent(searchParams.get('nufiDomain') || '') || 'https://wallet-testnet-staging.nu.fi'
+    
+    const colorMode = (() => {
+      const urlColorMode = decodeURIComponent(searchParams.get('colorMode') || '')
+      if (urlColorMode === 'light') return urlColorMode
+      return 'dark'
+    })()
 
-    nufiCoreSdk.init(nufiDomain)
+    nufiCoreSdk.init(nufiDomain, {
+      colorMode,
+    })
 
     nufiCoreSdk.getApi().isMetamaskInstalled().then((isMetamaskInstalled) => {
       setMetamaskInstalled(isMetamaskInstalled)
