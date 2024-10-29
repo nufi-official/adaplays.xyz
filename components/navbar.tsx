@@ -45,13 +45,19 @@ import {initNufiDappCardanoSdk as _initNufiDappCardanoSdk} from '@nufi/dapp-clie
 import {SsoButton} from '@nufi/sso-button-react'
 import styles from './navbar.module.css'
 
-const initNufiDappCardanoSdk = (platform: 'sso' | 'snap') => {
-  _initNufiDappCardanoSdk(nufiCoreSdk, platform, {
-    featuredTokens: [{
-      assetNameHex: '55534443',
-      policyIdHex: '648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198'
-    }]
-  })
+const preprodNufiDomain = 'https://wallet-testnet-staging.nu.fi'
+
+const initNufiDappCardanoSdk = (nufiDomain: string | null, platform: 'sso' | 'snap') => {
+  if (nufiDomain === 'https://wallet-testnet-staging.nu.fi') {
+    _initNufiDappCardanoSdk(nufiCoreSdk, platform, {
+      featuredTokens: [{
+        assetNameHex: '55534443',
+        policyIdHex: '648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198'
+      }]
+    })
+  } else {
+    _initNufiDappCardanoSdk(nufiCoreSdk, platform)
+  }
 }
 
 export default function Navbar() {
@@ -118,6 +124,7 @@ export default function Navbar() {
 const ConnectButton = () => {
   const { status, data } = useSession()
   const [metamaskInstalled, setMetamaskInstalled] = useState(false)
+  const [nufiDomain, setNufiDomain] = useState<string | null>(null)
 
   const [ssoUserInfo, setSSOUserInfo] = useState<null | SocialLoginInfo>(null)
 
@@ -144,7 +151,7 @@ const ConnectButton = () => {
     // Due to internal testing, normally the URL is expected to come
     // up from ENV or being simply hardcoded.
     const searchParams = new URLSearchParams(window.location.search)
-    const nufiDomain = decodeURIComponent(searchParams.get('nufiDomain') || '') || 'https://wallet-testnet-staging.nu.fi'
+    const nufiDomain = decodeURIComponent(searchParams.get('nufiDomain') || '') || preprodNufiDomain
     
     const colorMode = (() => {
       const urlColorMode = decodeURIComponent(searchParams.get('colorMode') || '')
@@ -164,6 +171,7 @@ const ConnectButton = () => {
     const currentSSOInfo = nufiCoreSdk.getApi().onSocialLoginInfoChanged((data) => {
       setSSOUserInfo(data)
     })
+    setNufiDomain(nufiDomain)
     setSSOUserInfo(currentSSOInfo)
   }, [])
 
@@ -172,11 +180,11 @@ const ConnectButton = () => {
     const fn = async () => {
       if (status === 'authenticated') {
         if (data.user.wallet === 'nufiSSO') {
-          initNufiDappCardanoSdk('sso')
+          initNufiDappCardanoSdk(nufiDomain, 'sso')
           await window.cardano.nufiSSO.enable()
         }
         if (data.user.wallet === 'nufiSnap') {
-          initNufiDappCardanoSdk('snap')
+          initNufiDappCardanoSdk(nufiDomain, 'snap')
           await window.cardano.nufiSnap.enable()
         }
       }
@@ -286,7 +294,7 @@ const ConnectButton = () => {
               isLoading={isConnecting}
               onLogin={() => {
                 _setCandidateWalletName('nufiSSO')
-                initNufiDappCardanoSdk('sso');
+                initNufiDappCardanoSdk(nufiDomain, 'sso');
                 connectWallet('nufiSSO')
               }}
               classes={{
@@ -314,7 +322,7 @@ const ConnectButton = () => {
                   <Button key={walletName} onClick={() => {
                     setSelectWalletTapped(true);
                     if (walletName === 'nufiSnap') {
-                      initNufiDappCardanoSdk('snap');
+                      initNufiDappCardanoSdk(nufiDomain, 'snap');
                     }
                     connectWallet(walletName)
                   }} variant='link' colorScheme='black' isLoading={selectWalletTapped}>
