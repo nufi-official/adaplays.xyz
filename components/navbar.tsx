@@ -161,6 +161,7 @@ const ConnectButton = () => {
 
     nufiCoreSdk.init(nufiDomain, {
       colorMode,
+      responsive: true,
     })
 
     nufiCoreSdk.getApi().isMetamaskInstalled().then((isMetamaskInstalled) => {
