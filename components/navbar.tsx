@@ -48,7 +48,7 @@ import styles from './navbar.module.css'
 const preprodNufiDomain = 'https://wallet-testnet-staging.nu.fi'
 
 const initNufiDappCardanoSdk = (nufiDomain: string | null, platform: 'sso' | 'snap') => {
-  if (nufiDomain === 'https://wallet-testnet-staging.nu.fi') {
+  if (nufiDomain === preprodNufiDomain) {
     _initNufiDappCardanoSdk(nufiCoreSdk, platform, {
       featuredTokens: [{
         assetNameHex: '55534443',
