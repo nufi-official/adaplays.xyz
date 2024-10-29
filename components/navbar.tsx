@@ -28,7 +28,8 @@ import {
   VStack,
   FormControl,
   FormErrorMessage,
-  Input
+  Input,
+  Box
 } from '@chakra-ui/react';
 import { FaGithub } from 'react-icons/fa';
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -68,31 +69,44 @@ export default function Navbar() {
       // position="sticky"
       // top="0"
       // zIndex='docked'
-      bg="white"
+      bg='white'
       borderBottom={1}
       borderStyle='solid'
       borderColor='black'
-      h={navHeight}
+      minH={navHeight}
       align='center'
       justify='space-between'
+      flexWrap='wrap'
+      gap={3}
+      pb={2}
     >
-      {/* Logo */}
-      <NextLink href="/" passHref>
+      <Flex flex={1} align='center' justify='space-between'>
+        {/* Logo */}
+        <NextLink href='/' passHref>
+          <Link
+            onMouseEnter={() => setLogoHover(true)}
+            onMouseLeave={() => setLogoHover(false)}
+          >
+            <HStack>
+              <Heading
+                variant='brand'
+                position='relative'
+                left='10px'
+                bg='white'
+                borderRightRadius='full'
+              >
+                adaplays
+              </Heading>
+              <Logo />
+            </HStack>
+            {/* <Logo logoHover={logoHover} /> */}
+          </Link>
+        </NextLink>
         <Link
-          onMouseEnter={() => setLogoHover(true)}
-          onMouseLeave={() => setLogoHover(false)}
+          isExternal
+          aria-label='Go to adaplays Github page'
+          href='https://www.github.com/adaplays'
         >
-          <HStack>
-            <Heading variant='brand' position='relative' left='10px' bg='white' borderRightRadius='full'>
-              adaplays
-            </Heading>
-            <Logo />
-          </HStack>
-          {/* <Logo logoHover={logoHover} /> */}
-        </Link>
-      </NextLink>
-      <HStack mr='10px'>
-        <Link isExternal aria-label='Go to adaplays Github page' href='https://www.github.com/adaplays'>
           <Icon
             as={FaGithub}
             display='block'
@@ -115,8 +129,11 @@ export default function Navbar() {
             <Icon pt='10px' height='36px' width='36px' as={FaGithub}></Icon>
           </Box> */}
         </Link>
+      </Flex>
+
+      <Box mx='auto'>
         <ConnectButton />
-      </HStack>
+      </Box>
     </Flex>
   );
 }
