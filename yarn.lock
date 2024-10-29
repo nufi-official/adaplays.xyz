@@ -1140,17 +1140,17 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nufi/dapp-client-cardano@0.4.0-beta2":
-  version "0.4.0-beta2"
-  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-cardano/-/dapp-client-cardano-0.4.0-beta2.tgz#c2021c8b731281ff5f0cd0b950d13a5ebedfca39"
-  integrity sha512-YsCg+OkoGPQ08txTyuW7/VmPwYMSKkJsnMbxwJiaTeOJPgVf43XZf8sAzaX4AZYPgG9/MNIC15F1VHlEAGbF9A==
+"@nufi/dapp-client-cardano@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-cardano/-/dapp-client-cardano-0.5.0.tgz#63b598443e968866c239f58769690c20c4ea792e"
+  integrity sha512-tuNdwC15tclyA2hgavpUIoybSC/pO5sYbAmTkEaHBuemyU4l+HnilgwJXfluIS7xpgjdkI4VXONSDnXFphu+Jg==
   dependencies:
-    "@nufi/dapp-client-core" "0.4.0-beta2"
+    "@nufi/dapp-client-core" "0.5.0"
 
-"@nufi/dapp-client-core@0.4.0-beta2":
-  version "0.4.0-beta2"
-  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-core/-/dapp-client-core-0.4.0-beta2.tgz#218f2c5c0e2fea2ea2e1e2ec3680d3f0ae006848"
-  integrity sha512-DMwR7bMrCWSnKM39fjoDhTnRkmTi6r+s5/8IwivYm7Lk4dVIzDutLPFBLis5rEX4CgyrvZc4bgu125rr4RfRXQ==
+"@nufi/dapp-client-core@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-core/-/dapp-client-core-0.5.0.tgz#14ab6e5b86f027e33c7b916a2a57bac2a2b4904c"
+  integrity sha512-R0kjXgtEilNUP7lFa3oDkMlZBxzualOnZN85YEO9kjZU9sMnYirfy2kHKgCR2zQ+5VKJBgYXiuBgu41xiTMU5A==
 
 "@nufi/sso-button-react@^0.0.3":
   version "0.0.3"
