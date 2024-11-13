@@ -57,13 +57,15 @@ const Home: NextPage = () => {
             }}>
               Testing: Sign Message
             </Button>
-            <Button {...commonButtonProps} onClick={() => {
-               nufiCoreSdk.getApi().showWidget('opened')
+            <Button {...commonButtonProps} onClick={async () => {
+                const {showWidget} = await nufiCoreSdk.getWidgetApi()
+                showWidget('opened')
               }}>
               Testing: Open widget
             </Button>
-            <Button {...commonButtonProps} onClick={() => {
-                  nufiCoreSdk.getApi().showWidget('closed')
+            <Button {...commonButtonProps} onClick={async () => {
+                const {showWidget} = await nufiCoreSdk.getWidgetApi()
+                showWidget('closed')
               }}>
               Testing: Close widget
             </Button>

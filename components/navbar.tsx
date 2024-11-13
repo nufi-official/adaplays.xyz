@@ -264,7 +264,8 @@ const ConnectButton = () => {
 
     // As there is no such method in CIP-30 we need to close widget manually
     if (data?.user.wallet === 'nufiSSO' || data?.user.wallet === 'nufiSnap') {
-      nufiCoreSdk.getApi().hideWidget()
+      const {hideWidget} = await nufiCoreSdk.getWidgetApi()
+      hideWidget()
     }
   }
 
