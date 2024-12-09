@@ -181,12 +181,12 @@ const ConnectButton = () => {
       responsive: true,
     })
 
-    nufiCoreSdk.getApi().isMetamaskInstalled().then((isMetamaskInstalled) => {
+    nufiCoreSdk.isMetamaskInstalled().then((isMetamaskInstalled) => {
       setMetamaskInstalled(isMetamaskInstalled)
     })
       
     // Listen for SSO session info
-    const currentSSOInfo = nufiCoreSdk.getApi().onSocialLoginInfoChanged((data) => {
+    const currentSSOInfo = nufiCoreSdk.onSocialLoginInfoChanged((data) => {
       setSSOUserInfo(data)
     })
     setNufiDomain(nufiDomain)
@@ -264,7 +264,8 @@ const ConnectButton = () => {
 
     // As there is no such method in CIP-30 we need to close widget manually
     if (data?.user.wallet === 'nufiSSO' || data?.user.wallet === 'nufiSnap') {
-      nufiCoreSdk.getApi().hideWidget()
+      const {hideWidget} = await nufiCoreSdk.getWidgetApi()
+      hideWidget()
     }
   }
 
