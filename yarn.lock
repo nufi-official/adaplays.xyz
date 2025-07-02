@@ -1152,10 +1152,10 @@
   resolved "https://registry.yarnpkg.com/@nufi/dapp-client-core/-/dapp-client-core-0.7.0.tgz#7d253a4feb1b56ff6a63646b438b5272461618b2"
   integrity sha512-X0qg7228FQbZ7aKMAD3UgBY5lGWJKE9qtpeMvgapV5BX+ekttWw3FILz/Dx3T3oGoCrw/1+DYQS3X8Q2DjsIiA==
 
-"@nufi/sso-button-react@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@nufi/sso-button-react/-/sso-button-react-0.0.3.tgz#3e8472f17aecf74794b4bf75b1cfe20f5d2cc5d0"
-  integrity sha512-Kd/vSEDt3UJT16jNZxyHQvSCfo0jFCBquP9zVagqZCFTB78deHRL8KBtdd8mjD6ZP5/FMlgpZP2fFIB0ot/l4A==
+"@nufi/sso-button-react@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@nufi/sso-button-react/-/sso-button-react-0.0.4.tgz#5b3262d67bd340f242332b6895ce025cccdd1605"
+  integrity sha512-dJMdKYFMAw1cttS430s3lWqGS9G43Ufr80j6Zspmc51by+ncGxah55ntrkhp3S0bI7I2shafCnJ1wGnzK+i0rg==
   dependencies:
     classnames "^2.5.1"
 
