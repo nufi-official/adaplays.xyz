@@ -2,6 +2,10 @@
   "name": "adaplays.xyz",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "yarn@4.18.0",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -32,7 +36,7 @@
     "zustand": "^4.1.4"
   },
   "devDependencies": {
-    "@types/node": "18.11.3",
+    "@types/node": "24.13.5",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "eslint": "8.26.0",
