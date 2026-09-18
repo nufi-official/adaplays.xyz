@@ -2,11 +2,21 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.experiments = {
       asyncWebAssembly: true,
       topLevelAwait: true,
       layers: true, // optional, with some bundlers/frameworks it doesn't work without
+    }
+    if (isServer) {
+      const prev = config.externals
+      config.externals = [
+        ...(Array.isArray(prev) ? prev : prev ? [prev] : []),
+        {
+          '@anastasia-labs/cardano-multiplatform-lib-nodejs':
+            'commonjs @anastasia-labs/cardano-multiplatform-lib-nodejs',
+        },
+      ]
     }
     return config
   },

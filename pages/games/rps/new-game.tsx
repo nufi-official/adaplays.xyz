@@ -26,7 +26,7 @@ import type { MintingPolicy, Lucid } from 'lucid-cardano'
 import { getMintingPolicy } from 'utils/lucid/minting-policy'
 import { generateKey, generateRandomString, encrypt } from 'utils/cryptography/utils'
 import { validatorAddress, moves } from 'constants/games/rps/constants';
-import { getLucid, getDesiredUtxo } from 'utils/lucid/lucid';
+import { getLucid, getDesiredUtxo, submitLucidTx } from 'utils/lucid/lucid';
 import { NextRouter, useRouter } from 'next/router';
 import type { Move } from 'types/games/rps/types'
 
@@ -93,8 +93,7 @@ const createGame = async (lucid: Lucid, router: NextRouter, playerBAddress: stri
       .attachMintingPolicy(mintingPolicy)
       .payToContract(validatorAddress, { inline: Datum }, { lovelace, [unit]: 1n })
       .complete()
-    const signedTx = await tx.sign().complete()
-    await signedTx.submit()  // maybe some use can be made for txhash.
+    await submitLucidTx(lucid, tx)
     router.push({
       pathname: '/games/rps/game',
       query: {
@@ -124,9 +123,14 @@ const NewGame: NextPage = () => {
           initialValues={{ playerB: '', stake: 3, duration: 3, move: '' }}
           validationSchema={createGameSchema}
           onSubmit={async (values, actions) => {
-            const lucid: Lucid = await getLucid(data!.user.wallet)
-            await createGame(lucid, router, values.playerB, values.stake, values.move as Move, data!.user.password)
-            actions.resetForm()
+            try {
+              const lucid: Lucid = await getLucid(data!.user.wallet)
+              await createGame(lucid, router, values.playerB, values.stake, values.move as Move, data!.user.password)
+              actions.resetForm()
+            } catch (e) {
+              console.error(e)
+              alert(e instanceof Error ? e.message : "Game could not be created. Kindly retry.")
+            }
           }}
         >
           {(props) => (

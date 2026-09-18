@@ -12,7 +12,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { navHeight } from 'constants/global'
-import { getLucid } from 'utils/lucid/lucid'
+import { getLucid, submitLucidTx } from 'utils/lucid/lucid'
 import { useSession } from 'next-auth/react'
 import { validatorAddress, validatorRefUtxo, moves, moveToInt } from 'constants/games/rps/constants';
 import { Lucid, UTxO, Data, PlutusData, Constr, utf8ToHex, hexToUtf8 } from 'lucid-cardano'
@@ -193,9 +193,8 @@ const Game = () => {
           .mintAssets({ [unit]: -1n }, Data.to(new Constr(1, [])))
           .attachMintingPolicy(mintingPolicy)
           .complete()
-        const signedTx = await tx.sign().complete()
         try {
-          await signedTx.submit()  // maybe some use can be made for txhash.
+          await submitLucidTx(lucid, tx)
           gameCompleted()
         } catch (e) {
           alert("Their was an error, kindly retry. Error could have been caused by system clock not being accurate enough")
@@ -226,9 +225,8 @@ const Game = () => {
         .mintAssets({ [unit]: -1n }, Data.to(new Constr(1, [])))
         .attachMintingPolicy(mintingPolicy)
         .complete()
-      const signedTx = await tx.sign().complete()
       try {
-        await signedTx.submit()  // maybe some use can be made for txhash.
+        await submitLucidTx(lucid, tx)
         gameCompleted()
       } catch (e) {
         alert("Their was an error, kindly retry. Error could have been caused by system clock not being accurate enough")
@@ -260,9 +258,8 @@ const Game = () => {
         .validFrom(Number(startTime) + 1000)
         .validTo(_deadline - 1000)
         .complete()
-      const signedTx = await tx.sign().complete()
       try {
-        await signedTx.submit()  // maybe some use can be made for txhash.
+        await submitLucidTx(lucid, tx)
         gameCompleted()
       } catch (e) {
         alert("Their was an error, kindly retry. Error could have been caused by system clock not being accurate enough")
@@ -413,9 +410,8 @@ const Game = () => {
         .validFrom(Number(startTime) + 1000)
         .validTo(_deadline - 1000)
         .complete()
-      const signedTx = await tx.sign().complete()
       try {
-        await signedTx.submit()  // maybe some use can be made for txhash.
+        await submitLucidTx(lucid, tx)
         reset()
       } catch (e) {
         alert("Their was an error, kindly retry. Error could have been caused by system clock not being accurate enough.")
@@ -523,9 +519,8 @@ const Game = () => {
               .mintAssets({ [unit]: -1n }, Data.to(new Constr(1, [])))
               .attachMintingPolicy(mintingPolicy)
               .complete()
-            const signedTx = await tx.sign().complete()
             try {
-              await signedTx.submit()  // maybe some use can be made for txhash.
+              await submitLucidTx(lucid, tx)
               gameCompleted()
             } catch (e) {
               alert("Their was an error, kindly retry. Error could have been caused by system clock not being accurate enough")
@@ -599,9 +594,8 @@ const Game = () => {
             .mintAssets({ [unit]: -1n }, Data.to(new Constr(1, [])))
             .attachMintingPolicy(mintingPolicy)
             .complete()
-          const signedTx = await tx.sign().complete()
           try {
-            await signedTx.submit()  // maybe some use can be made for txhash.
+            await submitLucidTx(lucid, tx)
             gameCompleted()
           } catch (e) {
             alert("Their was an error, kindly retry. Error could have been caused by system clock not being accurate enough")

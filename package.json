@@ -13,6 +13,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anastasia-labs/cardano-multiplatform-lib-nodejs": "6.2.0-1",
     "@chakra-ui/icons": "^2.0.11",
     "@chakra-ui/react": "^2.3.7",
     "@emotion/react": "^11.10.5",
