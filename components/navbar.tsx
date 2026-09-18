@@ -7,7 +7,7 @@ import type { SupportedWallets } from '../types/types'
 import { useState, useRef, useEffect } from 'react';
 import NextLink from 'next/link';
 import { navHeight } from 'constants/global';
-import { WalletApi, Lucid } from "lucid-cardano";
+import { WalletApi } from "lucid-cardano";
 import {
   Heading,
   Flex,
@@ -40,7 +40,7 @@ import * as yup from "yup";
 import YupPassword from 'yup-password'
 YupPassword(yup)
 import { brandButtonStyle } from 'theme/simple'
-import { getApi, getLucid } from "utils/lucid/lucid";
+import { getApi, getWalletBech32Address } from "utils/lucid/lucid";
 import nufiCoreSdk, { SocialLoginInfo } from '@nufi/dapp-client-core'
 import {initNufiDappCardanoSdk as _initNufiDappCardanoSdk} from '@nufi/dapp-client-cardano'
 import {SsoButton} from '@nufi/sso-button-react'
@@ -196,7 +196,8 @@ const ConnectButton = () => {
   // Ensure that widget is shown on page refresh if authenticated
   useEffect(() => {
     const fn = async () => {
-      if (status === 'authenticated') {
+      if (status !== 'authenticated' || !nufiDomain) return
+      try {
         if (data.user.wallet === 'nufiSSO') {
           initNufiDappCardanoSdk(nufiDomain, 'sso')
           await window.cardano.nufiSSO.enable()
@@ -205,10 +206,12 @@ const ConnectButton = () => {
           initNufiDappCardanoSdk(nufiDomain, 'snap')
           await window.cardano.nufiSnap.enable()
         }
+      } catch (e) {
+        console.error(e)
       }
     }
     fn()
-  }, [status, data])
+  }, [status, data, nufiDomain])
 
   const resetStatus = () => {
     // why setTimeout? Well because there is a slight delay in closing of Popover.
@@ -368,12 +371,21 @@ const ConnectButton = () => {
                 initialValues={{ password: '', confirmPassword: '' }}
                 validationSchema={createPasswordSchema}
                 onSubmit={async (values, actions) => {
-                  const lucid: Lucid = await getLucid(_candidateWalletName)
-                  const walletAddress = await lucid.wallet.address()
-                  const cred: User = { id: walletAddress, password: values.password, wallet: _candidateWalletName }
-                  // spread is used because: https://bobbyhadz.com/blog/typescript-index-signature-for-type-is-missing-in-type
-                  await signIn('credentials', { ...cred, redirect: false })
-                  actions.resetForm()
+                  try {
+                    const api = await getApi(_candidateWalletName)
+                    const walletAddress = await getWalletBech32Address(api)
+                    const cred: User = { id: walletAddress, password: values.password, wallet: _candidateWalletName }
+                    // spread is used because: https://bobbyhadz.com/blog/typescript-index-signature-for-type-is-missing-in-type
+                    const result = await signIn('credentials', { ...cred, redirect: false })
+                    if (!result?.ok) {
+                      throw new Error(result?.error || 'Sign in failed')
+                    }
+                    actions.resetForm()
+                  } catch (e) {
+                    console.error(e)
+                    const message = e instanceof Error ? e.message : String(e)
+                    alert(`Could not complete login: ${message}`)
+                  }
                 }}
               >
                 {(props) => (

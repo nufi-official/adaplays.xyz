@@ -1,8 +1,17 @@
-import { Blockfrost, Lucid, WalletApi, UTxO, Script, Address, Data, PlutusData, Constr } from "lucid-cardano"
+import { Blockfrost, Lucid, WalletApi, UTxO, Script, Address, Data, PlutusData, Constr, getAddressDetails } from "lucid-cardano"
 import { SupportedWallets } from "types/types"
 
 export const getApi = async (walletName: SupportedWallets) => (await window.cardano[walletName].enable())
 
+export const getWalletBech32Address = async (api: WalletApi) => {
+  const used = await api.getUsedAddresses()
+  const unused = await api.getUnusedAddresses()
+  const raw = used?.[0] || unused?.[0] || await api.getChangeAddress()
+  if (!raw) {
+    throw new Error("Wallet did not return an address")
+  }
+  return getAddressDetails(raw).address.bech32
+}
 
 export const getLucid = async (walletName: SupportedWallets) => {
   const api: WalletApi = await getApi(walletName)

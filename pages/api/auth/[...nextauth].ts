@@ -31,8 +31,10 @@ export const authOptions: NextAuthOptions = {
       type: "credentials",  // this is by default, see other default params here: https://github.com/nextauthjs/next-auth/blob/main/packages/next-auth/src/providers/credentials.ts
       // The credentials is used to generate a suitable form on the sign in page.
       credentials: {},
-      async authorize(credentials, req) {
-        return credentials as User
+      async authorize(credentials) {
+        const { id, password, wallet } = (credentials || {}) as User
+        if (!id || !password || !wallet) return null
+        return { id, password, wallet }
       },
     })
   ],
